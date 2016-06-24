@@ -2,9 +2,22 @@
 
     <string name="app_name">OdeToJoy_ShareFile</string>
     
+    <!-- 登录、注册  -->
+    <string name="login">登录</string>
+    <string name="back">返回</string>
+    <string name="register">注册</string>
+    <string name="pwd">密码</string>
+    <string name="account">用户名</string>
+    
     <!-- 文件分类 -->
 	<string name="all">文件</string>
 	<string name="app">应用</string>
 	<string name="picture">图库</string>
 	<string name="music">音乐</string>
+	
+	<!-- 发送文件类型  -->
+	<string name="send_all">选择发送的文件</string>
+	<string name="send_app">选择发送的应用</string>
+	<string name="send_picture">选择发送的图库</string>
+	<string name="send_music">选择发送的音乐</string>
 </resources>

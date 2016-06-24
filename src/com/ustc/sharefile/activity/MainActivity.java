@@ -129,10 +129,22 @@ public class MainActivity extends FragmentActivity {
 
     private void seleteItem(int position){
         leftList.setItemChecked(position, true);
-
-        Fragment newFragment = new LoginFragment();/* new 一个子fragment */
+        Fragment newFragment = null;
         Bundle args = new Bundle();
-        args.putInt(LoginFragment.ARG_SHOW_FRAGMENT,position);
+        switch (position) {
+		case 0:
+			newFragment = new LoginFragment();/* new 一个子fragment */
+	        args.putInt(LoginFragment.ARG_SHOW_FRAGMENT,position);
+			break;
+		case 1:
+			newFragment = new MainFragment();/* new 一个子fragment */
+	        args.putInt(LoginFragment.ARG_SHOW_FRAGMENT,position);
+			break;
+			
+		default:
+			break;
+		}
+        
         newFragment.setArguments(args);/* 装载数据 */
         /* 替换当前fragment */
         getSupportFragmentManager().beginTransaction().replace(R.id.root_framelayout,newFragment).commit();
