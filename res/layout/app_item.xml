@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:descendantFocusability="blocksDescendants"
+    android:id="@+id/framelayout_app"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
+
+    <com.ustc.sharefile.model.MyImageView
+        android:id="@+id/app_image"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true" 
+        android:background="@drawable/friends_sends_pictures_no"
+        android:scaleType="fitXY" />
+
+    <CheckBox
+        android:id="@+id/app_checkbox"
+        android:layout_alignRight="@id/app_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/pictures_select_icon" />
+    
+    <TextView 
+        android:id="@+id/app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/app_image"
+        android:layout_centerHorizontal="true" 
+        android:text="app" />
+
+</RelativeLayout>
