@@ -20,4 +20,12 @@
 	<string name="send_app">选择发送的应用</string>
 	<string name="send_picture">选择发送的图库</string>
 	<string name="send_music">选择发送的音乐</string>
+	
+	<!-- 裁剪 -->
+	<string name="cut_picture">裁剪图片</string>
+	<string name="size1">1寸</string>
+	<string name="size2">2寸</string>
+	<string name="size3">5寸</string>
+	<string name="size4">6寸</string>
+	<string name="size5">7寸</string>
 </resources>

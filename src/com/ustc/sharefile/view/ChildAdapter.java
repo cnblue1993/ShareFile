@@ -10,6 +10,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,11 +36,13 @@ public class ChildAdapter extends BaseAdapter {
 	private HashMap<Integer, Boolean> mSelectMap = new HashMap<Integer, Boolean>();
 	private GridView mGridView;
 	private List<String> list;
+
 	protected LayoutInflater mInflater;
 
 	public ChildAdapter(Context context, List<String> list, GridView mGridView) {
 		this.list = list;
 		this.mGridView = mGridView;
+		
 		mInflater = LayoutInflater.from(context);
 	}
 	
@@ -113,6 +116,7 @@ public class ChildAdapter extends BaseAdapter {
 		
 		if(bitmap != null){
 			viewHolder.mImageView.setImageBitmap(bitmap);
+			System.out.println(bitmap);
 		}else{
 			viewHolder.mImageView.setImageResource(R.drawable.friends_sends_pictures_no);
 		}
@@ -149,10 +153,11 @@ public class ChildAdapter extends BaseAdapter {
 		
 		return list;
 	}
-	
+
 	
 	public static class ViewHolder{
 		public MyImageView mImageView;
 		public CheckBox mCheckBox;
 	}
+	
 }

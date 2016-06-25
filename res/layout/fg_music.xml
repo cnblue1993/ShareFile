@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+ 	<com.ustc.sharefile.model.RippleLayout
+    	xmlns:ripple="http://schemas.android.com/apk/org.simple.ripplelayout"
+        android:id="@+id/find_ripple_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        ripple:duration="3000"
+        ripple:radius="32dp"
+        ripple:rippleNums="1"
+        ripple:scale="4"
+        ripple:color="#8899CC" >
+
+        <com.ustc.sharefile.model.CircleImageView
+            android:id="@+id/find_centerImage"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/user" /> 
+       <TextView 
+           android:id="@+id/find_tip"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content" 
+           android:layout_below="@id/centerImage"
+           android:layout_centerInParent="true"
+           android:text="查找用户。。。"    />
+             
+       </com.ustc.sharefile.model.RippleLayout>
+</LinearLayout>

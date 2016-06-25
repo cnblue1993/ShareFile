@@ -1,15 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-	<TextView
-        android:id="@+id/txt_content"
+ 	<com.ustc.sharefile.model.RippleLayout
+    	xmlns:ripple="http://schemas.android.com/apk/org.simple.ripplelayout"
+        android:id="@+id/ripple_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="呵呵"
-        android:textSize="20sp" />
-	
+        ripple:duration="3000"
+        ripple:radius="32dp"
+        ripple:rippleNums="1"
+        ripple:scale="4"
+        ripple:color="#8899CC" >
+
+        <com.ustc.sharefile.model.CircleImageView
+            android:id="@+id/centerImage"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/user" /> 
+       <TextView 
+           android:id="@+id/tip"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content" 
+           android:layout_below="@id/centerImage"
+           android:layout_centerInParent="true"
+           android:text="创建热点。。。"    />
+             
+       </com.ustc.sharefile.model.RippleLayout>
+
+    
 </LinearLayout>

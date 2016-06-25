@@ -45,6 +45,59 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int civ_fill_color=0x7f010003;
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int color=0x7f010004;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int duration=0x7f010007;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int radius=0x7f010006;
+        /** <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int rippleNums=0x7f010008;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int scale=0x7f010009;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int strokeWidth=0x7f010005;
     }
     public static final class color {
         public static final int Title_bg=0x7f040004;
@@ -85,54 +138,74 @@ containing a value of this type.
         public static final int user=0x7f020016;
     }
     public static final class id {
-        public static final int app_checkbox=0x7f080007;
-        public static final int app_image=0x7f080006;
-        public static final int app_name=0x7f080008;
-        public static final int btn_back=0x7f080019;
-        public static final int btn_login=0x7f08001a;
-        public static final int btn_register=0x7f080018;
-        public static final int div_tab_bar=0x7f080011;
-        public static final int drawer_layout=0x7f080000;
-        public static final int et_account=0x7f080016;
-        public static final int et_pwd=0x7f080017;
-        public static final int framelayout_app=0x7f080005;
-        public static final int framelayout_picture=0x7f08001b;
-        public static final int framelayout_picture_group=0x7f08001e;
-        public static final int gv_app=0x7f08000a;
-        public static final int gv_picture=0x7f08000b;
-        public static final int iv_left=0x7f080013;
-        public static final int left_relative_drawer=0x7f080002;
-        public static final int lv_left=0x7f080004;
-        public static final int picture_child_checkbox=0x7f08001d;
-        public static final int picture_child_grid=0x7f080022;
-        public static final int picture_child_image=0x7f08001c;
-        public static final int picture_group_count=0x7f080020;
-        public static final int picture_group_image=0x7f08001f;
-        public static final int picture_group_title=0x7f080021;
-        public static final int rb_all=0x7f08000d;
-        public static final int rb_app=0x7f08000e;
-        public static final int rb_music=0x7f080010;
-        public static final int rb_picture=0x7f08000f;
-        public static final int rg_type=0x7f08000c;
-        public static final int root_framelayout=0x7f080001;
-        public static final int screen=0x7f080015;
-        public static final int tv_left=0x7f080014;
-        public static final int tv_userName=0x7f080003;
-        public static final int txt_content=0x7f080009;
-        public static final int vpager=0x7f080012;
+        public static final int app_checkbox=0x7f090007;
+        public static final int app_image=0x7f090006;
+        public static final int app_name=0x7f090008;
+        public static final int btn_back=0x7f090020;
+        public static final int btn_login=0x7f090021;
+        public static final int btn_register=0x7f09001f;
+        public static final int centerImage=0x7f09000a;
+        public static final int cut=0x7f090030;
+        public static final int div_tab_bar=0x7f090018;
+        public static final int drawer_layout=0x7f090000;
+        public static final int et_account=0x7f09001d;
+        public static final int et_pwd=0x7f09001e;
+        public static final int find_centerImage=0x7f09000e;
+        public static final int find_ripple_layout=0x7f09000d;
+        public static final int find_tip=0x7f09000f;
+        public static final int find_user=0x7f090012;
+        public static final int framelayout_app=0x7f090005;
+        public static final int framelayout_picture=0x7f090022;
+        public static final int framelayout_picture_group=0x7f09002b;
+        public static final int gv_app=0x7f09000c;
+        public static final int gv_picture=0x7f090010;
+        public static final int id_clipImageLayout=0x7f090025;
+        public static final int iv_left=0x7f09001a;
+        public static final int left_relative_drawer=0x7f090002;
+        public static final int lv_left=0x7f090004;
+        public static final int picture_child_checkbox=0x7f090024;
+        public static final int picture_child_grid=0x7f09002f;
+        public static final int picture_child_image=0x7f090023;
+        public static final int picture_group_count=0x7f09002d;
+        public static final int picture_group_image=0x7f09002c;
+        public static final int picture_group_title=0x7f09002e;
+        public static final int rb_all=0x7f090014;
+        public static final int rb_app=0x7f090015;
+        public static final int rb_music=0x7f090017;
+        public static final int rb_picture=0x7f090016;
+        public static final int rg_type=0x7f090013;
+        public static final int ripple_layout=0x7f090009;
+        public static final int root_framelayout=0x7f090001;
+        public static final int screen=0x7f09001c;
+        public static final int size1=0x7f090026;
+        public static final int size2=0x7f090027;
+        public static final int size3=0x7f090028;
+        public static final int size4=0x7f090029;
+        public static final int size5=0x7f09002a;
+        public static final int tip=0x7f09000b;
+        public static final int tv_left=0x7f09001b;
+        public static final int tv_userName=0x7f090003;
+        public static final int user_ripple_layout=0x7f090011;
+        public static final int vpager=0x7f090019;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int app_item=0x7f030001;
         public static final int fg_all=0x7f030002;
         public static final int fg_app=0x7f030003;
-        public static final int fg_picture=0x7f030004;
-        public static final int home=0x7f030005;
-        public static final int left_item_view=0x7f030006;
-        public static final int login=0x7f030007;
-        public static final int picture_child_item=0x7f030008;
-        public static final int picture_group_item=0x7f030009;
-        public static final int show_image_activity=0x7f03000a;
+        public static final int fg_music=0x7f030004;
+        public static final int fg_picture=0x7f030005;
+        public static final int find_user=0x7f030006;
+        public static final int home=0x7f030007;
+        public static final int left_item_view=0x7f030008;
+        public static final int login=0x7f030009;
+        public static final int picture_child_item=0x7f03000a;
+        public static final int picture_cut=0x7f03000b;
+        public static final int picture_group_item=0x7f03000c;
+        public static final int show_image_activity=0x7f03000d;
+    }
+    public static final class menu {
+        public static final int picture=0x7f080000;
     }
     public static final class string {
         public static final int account=0x7f060005;
@@ -142,6 +215,9 @@ containing a value of this type.
         public static final int app=0x7f060007;
         public static final int app_name=0x7f060000;
         public static final int back=0x7f060002;
+        /**  裁剪 
+         */
+        public static final int cut_picture=0x7f06000e;
         /**  登录、注册  
          */
         public static final int login=0x7f060001;
@@ -155,6 +231,11 @@ containing a value of this type.
         public static final int send_app=0x7f06000b;
         public static final int send_music=0x7f06000d;
         public static final int send_picture=0x7f06000c;
+        public static final int size1=0x7f06000f;
+        public static final int size2=0x7f060010;
+        public static final int size3=0x7f060011;
+        public static final int size4=0x7f060012;
+        public static final int size5=0x7f060013;
     }
     public static final class style {
         public static final int AcBar_titleStyle=0x7f070004;
@@ -268,5 +349,118 @@ containing a value of this type.
           @attr name com.ustc.sharefile:civ_fill_color
         */
         public static final int CircleImageView_civ_fill_color = 3;
+        /** Attributes that can be used with a RippleLayout.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #RippleLayout_color com.ustc.sharefile:color}</code></td><td></td></tr>
+           <tr><td><code>{@link #RippleLayout_duration com.ustc.sharefile:duration}</code></td><td></td></tr>
+           <tr><td><code>{@link #RippleLayout_radius com.ustc.sharefile:radius}</code></td><td></td></tr>
+           <tr><td><code>{@link #RippleLayout_rippleNums com.ustc.sharefile:rippleNums}</code></td><td></td></tr>
+           <tr><td><code>{@link #RippleLayout_scale com.ustc.sharefile:scale}</code></td><td></td></tr>
+           <tr><td><code>{@link #RippleLayout_strokeWidth com.ustc.sharefile:strokeWidth}</code></td><td></td></tr>
+           </table>
+           @see #RippleLayout_color
+           @see #RippleLayout_duration
+           @see #RippleLayout_radius
+           @see #RippleLayout_rippleNums
+           @see #RippleLayout_scale
+           @see #RippleLayout_strokeWidth
+         */
+        public static final int[] RippleLayout = {
+            0x7f010004, 0x7f010005, 0x7f010006, 0x7f010007,
+            0x7f010008, 0x7f010009
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.ustc.sharefile.R.attr#color}
+          attribute's value can be found in the {@link #RippleLayout} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.ustc.sharefile:color
+        */
+        public static final int RippleLayout_color = 0;
+        /**
+          <p>This symbol is the offset where the {@link com.ustc.sharefile.R.attr#duration}
+          attribute's value can be found in the {@link #RippleLayout} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.ustc.sharefile:duration
+        */
+        public static final int RippleLayout_duration = 3;
+        /**
+          <p>This symbol is the offset where the {@link com.ustc.sharefile.R.attr#radius}
+          attribute's value can be found in the {@link #RippleLayout} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.ustc.sharefile:radius
+        */
+        public static final int RippleLayout_radius = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.ustc.sharefile.R.attr#rippleNums}
+          attribute's value can be found in the {@link #RippleLayout} array.
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.ustc.sharefile:rippleNums
+        */
+        public static final int RippleLayout_rippleNums = 4;
+        /**
+          <p>This symbol is the offset where the {@link com.ustc.sharefile.R.attr#scale}
+          attribute's value can be found in the {@link #RippleLayout} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.ustc.sharefile:scale
+        */
+        public static final int RippleLayout_scale = 5;
+        /**
+          <p>This symbol is the offset where the {@link com.ustc.sharefile.R.attr#strokeWidth}
+          attribute's value can be found in the {@link #RippleLayout} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.ustc.sharefile:strokeWidth
+        */
+        public static final int RippleLayout_strokeWidth = 1;
     };
 }
