@@ -1,6 +1,10 @@
 package com.ustc.sharefile.activity;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,20 +12,24 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ustc.sharefile.R;
-import com.ustc.sharefile.model.ClipImageBorderView;
 import com.ustc.sharefile.model.ClipImageLayout;
+import com.ustc.sharefile.view.MainFragment;
+import com.ustc.sharefile.view.PictureFragment;
 
 public class CutImageActivity extends Activity {
 	
 	private ClipImageLayout mClipImageLayout;
+	private String path;
 	
 	private TextView size1;
 	private TextView size2;
@@ -60,9 +68,12 @@ public class CutImageActivity extends Activity {
 	    	byte [] bis=intent.getByteArrayExtra("bitmap");  
             Bitmap bitmap=BitmapFactory.decodeByteArray(bis, 0, bis.length);
 	    	mClipImageLayout.initImageDrawable(new BitmapDrawable(null, bitmap));
-	    }else
+	    	path = intent.getStringExtra("path");
+	    }else{
 	    	mClipImageLayout.initImageDrawable(getResources().getDrawable(R.drawable.friends_sends_pictures_no,null));
-
+	    	path = "/unknow";
+	    }
+	    System.out.println(path);
 	}
 	
 	class sizeListener implements OnClickListener{
@@ -116,8 +127,8 @@ public class CutImageActivity extends Activity {
 		{
 		case R.id.cut:
 			Bitmap bitmap = mClipImageLayout.clip();
-			
 			//未存储在本地
+			saveMyBitmap(path, bitmap);
 			
 //			Intent intent = new Intent(this, ShowImageActivity.class);
 //			intent.putExtra("bitmap", datas);
@@ -127,4 +138,49 @@ public class CutImageActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	public void saveMyBitmap(String bitName,Bitmap mBitmap){
+		  bitName = bitName.substring(bitName.lastIndexOf("/")+1);
+		  bitName = bitName.substring(0,bitName.length()-4);
+
+		  String path="/sdcard/ShareFiles/Cutpicture";   
+	      File file=new File(path);   
+	      if(!file.exists())   
+	    	  file.mkdirs();     
+	     
+		  
+		  File f = new File(path +"/" + bitName+".png");
+		  try {
+			  f.createNewFile();
+		  } catch (IOException e) {
+		   // TODO Auto-generated catch block
+			  Toast.makeText(this, "在保存图片时出错：", Toast.LENGTH_LONG).show();
+		  }
+		  
+		  FileOutputStream fOut = null;
+		  try {
+			  fOut = new FileOutputStream(f);
+		  } catch (FileNotFoundException e) {
+			  e.printStackTrace();
+		  }
+		  boolean isSaved = mBitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+	
+		  try {
+			  fOut.flush();
+		  } catch (IOException e) {
+			  e.printStackTrace();
+		  }
+		  try {
+			  fOut.close();
+		  } catch (IOException e) {
+			  e.printStackTrace();
+		  }
+		  
+		  if(isSaved){
+			  Toast.makeText(this, "裁剪图片已保存", Toast.LENGTH_SHORT);
+			  Intent backIntent = new Intent(this,MainActivity.class);
+			  startActivity(backIntent);
+		  }else{
+			  Toast.makeText(this, "裁剪图片保存失败", Toast.LENGTH_SHORT);
+		  }
+	 }
 }

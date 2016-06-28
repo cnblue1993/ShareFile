@@ -5,7 +5,45 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
- 	<com.ustc.sharefile.model.RippleLayout
+    
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        >
+        
+        <TextView android:id="@+id/file_pathinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="@string/file_path"
+            android:textSize="24sp"
+            />
+        
+        <Button android:id="@+id/file_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="发送"
+            />
+        
+        <TextView android:id="@+id/file_path"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/file_send"
+            android:layout_toRightOf="@id/file_pathinfo"
+            android:textSize="24sp"
+            />
+        
+    </RelativeLayout>
+    
+    <ListView android:id="@+id/file_detail"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="10dip"
+        android:transcriptMode="alwaysScroll"
+        />
+    
+ 	<!-- <com.ustc.sharefile.model.RippleLayout
     	xmlns:ripple="http://schemas.android.com/apk/org.simple.ripplelayout"
         android:id="@+id/ripple_layout"
         android:layout_width="match_parent"
@@ -31,7 +69,7 @@
            android:layout_centerInParent="true"
            android:text="创建热点。。。"    />
              
-       </com.ustc.sharefile.model.RippleLayout>
+       </com.ustc.sharefile.model.RippleLayout> -->
 
     
 </LinearLayout>

@@ -116,7 +116,6 @@ public class ChildAdapter extends BaseAdapter {
 		
 		if(bitmap != null){
 			viewHolder.mImageView.setImageBitmap(bitmap);
-			System.out.println(bitmap);
 		}else{
 			viewHolder.mImageView.setImageResource(R.drawable.friends_sends_pictures_no);
 		}

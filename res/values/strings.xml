@@ -28,4 +28,6 @@
 	<string name="size3">5寸</string>
 	<string name="size4">6寸</string>
 	<string name="size5">7寸</string>
+	
+	<string name="file_path">当前路径：</string>
 </resources>

@@ -44,15 +44,15 @@ public class MusicFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fg_music, container, false);
         
-        wifiManager = (WifiManager) getActivity().getSystemService(Context.WIFI_SERVICE);  
-        wifiReceiver = new WifiReceiver();
+        //wifiManager = (WifiManager) getActivity().getSystemService(Context.WIFI_SERVICE);  
+       // wifiReceiver = new WifiReceiver();
         
-        if (!wifiManager.isWifiEnabled()){
-        	if (wifiManager.getWifiState() != WifiManager.WIFI_STATE_ENABLING){
-        		wifiManager.setWifiEnabled(true);
-        	}
-        }
-        getActivity().registerReceiver(wifiReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
+//        if (!wifiManager.isWifiEnabled()){
+//        	if (wifiManager.getWifiState() != WifiManager.WIFI_STATE_ENABLING){
+//        		wifiManager.setWifiEnabled(true);
+//        	}
+//        }
+//        getActivity().registerReceiver(wifiReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
        
         layout = (RippleLayout) view.findViewById(R.id.find_ripple_layout);
         imageview = (ImageView) view.findViewById(R.id.find_centerImage);

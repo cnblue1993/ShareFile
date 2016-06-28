@@ -61,6 +61,7 @@ public class ShowImageActivity extends Activity {
 				bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);  
 				byte [] bitmapByte =baos.toByteArray();  
 				cutIntent.putExtra("bitmap", bitmapByte); 
+				cutIntent.putExtra("path", path);
 				
 				startActivity(cutIntent);
 			}

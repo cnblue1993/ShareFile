@@ -27,7 +27,7 @@
            android:id="@+id/find_tip"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content" 
-           android:layout_below="@id/centerImage"
+           android:layout_below="@id/find_centerImage"
            android:layout_centerInParent="true"
            android:text="查找用户。。。"    />
              
