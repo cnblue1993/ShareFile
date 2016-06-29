@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ustc.sharefile.R;
+import com.ustc.sharefile.activity.SendMainActivity;
 import com.ustc.sharefile.model.RippleLayout;
 
 public class AllFragment extends Fragment implements OnItemClickListener, OnClickListener{
@@ -158,9 +159,9 @@ public class AllFragment extends Fragment implements OnItemClickListener, OnClic
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			Intent intent = new Intent();
+			Intent intent = new Intent(getActivity(),SendMainActivity.class);
 			intent.putExtra("filePaths", path);
-			//发送文件未做
+			startActivity(intent);
 		}
 
 //    @Override

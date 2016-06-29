@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
- 	<com.ustc.sharefile.model.RippleLayout
+  	<com.ustc.sharefile.model.RippleLayout
     	xmlns:ripple="http://schemas.android.com/apk/org.simple.ripplelayout"
         android:id="@+id/find_ripple_layout"
         android:layout_width="match_parent"
