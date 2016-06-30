@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ustc.sharefile.R;
-import com.ustc.sharefile.activity.ChatActivity;
+import com.ustc.sharefile.activity.MainActivity;
 import com.ustc.sharefile.activity.SendMainActivity;
 
 import android.content.Intent;
@@ -48,11 +48,11 @@ public class Tools {
 	
 	// 消息命令
 	public static final int MAINACTIVITY=7998;//当前是MAINACTIVITY
-	public static final int CHATACTIVITY=7999;//CHATACTIVITY
-	public static final int ACTIVITY_MAIN=0;//mainA 构造函数专用
-	public static final int ACTIVITY_CHART=1;//mainB
-	public static SendMainActivity mainA=null;
-	public static ChatActivity chart=null;
+	public static final int SENDACTIVITY=7999;//
+	public static final int ACTIVITY_MAIN=0;//main构造函数专用
+	public static final int ACTIVITY_SEND=1;
+	public static SendMainActivity send=null;
+	public static MainActivity main=null;
 	public static int State=Tools.MAINACTIVITY;//状态，显示当前活跃activity
 	
 	//文件传送模块
@@ -77,20 +77,19 @@ public class Tools {
 	public static String sign=":";
 	
 	public static User me=null;
-	public static Map<String,List<Msg>> msgContainer = new HashMap<String,List<Msg>>();
-	public static int[] headIconIds = {R.drawable.user, R.drawable.user,R.drawable.user,R.drawable.user,
-		R.drawable.user,R.drawable.user,R.drawable.user,R.drawable.user,R.drawable.user,R.drawable.user};
+	
+	public static int[] headIconIds = {R.drawable.face0, R.drawable.face1,R.drawable.face2,R.drawable.face3,
+		R.drawable.face4,R.drawable.face5,R.drawable.face6,R.drawable.face7,R.drawable.face8,R.drawable.face9};
 	
 	// 构造函数
 		public Tools(Object o,int type){
 			switch(type)
 			{
 				case Tools.ACTIVITY_MAIN:
-					this.mainA=(SendMainActivity)o;
+					this.main=(MainActivity)o;
 					break;
-				case Tools.ACTIVITY_CHART:
-					this.chart=(ChatActivity)o;
-					break;
+				case Tools.ACTIVITY_SEND:
+					this.send=(SendMainActivity)o;
 			}
 			
 		}
@@ -109,6 +108,7 @@ public class Tools {
 			public void run() {
 				try {
 					byte[] data = Tools.toByteArray(msg);
+					
 					DatagramSocket ds = new DatagramSocket(Tools.PORT_SEND);
 					DatagramPacket packet = new DatagramPacket(data, data.length,
 							InetAddress.getByName(msg.getReceiveUserIp()), Tools.PORT_RECEIVE);
@@ -146,7 +146,7 @@ public class Tools {
 						byte[] data2 = new byte[dp.getLength()];
 						System.arraycopy(data, 0, data2, 0, data2.length);// 得到接收的数据
 						Msg msg = (Msg) Tools.toObject(data2);
-						System.out.println("receivethread+msg:"+msg);
+						
 						ds.close();
 						//解析消息
 						parse(msg);
@@ -156,83 +156,54 @@ public class Tools {
 
 			}
 		}
-		// 接收消息
-		public void receiveMsg(Msg msg)
-		{
-			Tips(Tools.SHOW,msg.getSendUser() + " 发来消息！");
-			if (!judgeUser(msg)) {// 如果列表无此人
-				this.addUser(msg);// 列表添加此人
-			}
-			if(Tools.State == Tools.MAINACTIVITY){
-				Tools.out("mainactivity界面");
-				List<Msg> mes = null;
-				if(msgContainer.containsKey(msg.getSendUserIp())){
-					mes = msgContainer.get(msg.getSendUserIp());
-					Tools.out("存在缓存");
-				}else{
-					mes = new ArrayList<Msg>();
-					Tools.out("不存在");
-				}
-				mes.add(msg);
-				msgContainer.put(msg.getSendUserIp(), mes);
-				Tools.out("更新计数");
-				Tips(Tools.REFLESHCOUNT, msg.getSendUserIp());
-			}
-			if (Tools.State == Tools.CHATACTIVITY) {
-				Tools.out("chat界面");
-				TipsChat(Tools.RECEIVEMSG, msg);
-			}
 
-		}
 		// 解析接收的
 		public void parse(Msg msg)
 		{
 			switch (msg.getMsgType()) {
 			case Tools.CMD_FILEACCEPT:
 				//收到确认接受
-				String path = Tools.chart.choosePath;
-				Tools.TipsChat(Tools.SHOW, "正在发送文件:" + new File(path).getName()); //toast提示
+				//String path = Tools.chart.choosePath;
+				//Tools.TipsChat(Tools.SHOW, "正在发送文件:" + new File(path).getName()); //toast提示
+				String path = Tools.send.choosePath;
+				Tools.TipsSend(Tools.SHOW, "正在发送文件:" + new File(path).getName());
 				Tools.sendProgress=0;
 				FileTcpClient tc0 = new FileTcpClient(msg, path);  //创建tcp+socket
 				tc0.start();
-				Tools.TipsChat(Tools.FILE_JINDU, "发送文件"+Tools.sign+"正在发送："+new File(path).getName()+Tools.sign+ (new File(path).length()));
+				
+				Tools.TipsSend(Tools.FILE_JINDU, "发送文件"+Tools.sign+"正在发送："+new File(path).getName()+Tools.sign+ (new File(path).length()));
 				fileProgress();//启动进度条线程
 				break;
 				
 			case Tools.CMD_FILEREFUSE:
 				//收到拒绝接受
-				Tools.TipsChat(Tools.SHOW, "对方拒绝接受文件");
+				Tools.TipsSend(Tools.SHOW, "对方拒绝接受文件");
 				break;
 				
 			case Tools.CMD_FILEREQUEST:
 				//收到传送文件请求
 				Tools.out("收到文件传送请求");
-				System.out.println("收到文件传送请求");
+
 				String[] newfileInfo = ((String) msg.getBody()).split(Tools.sign);
 				Tools.newfileName = newfileInfo[0];// 记录下文件名称
 				Tools.newfileSize = Long.parseLong(newfileInfo[1].trim());// 文件大小
 				if(Tools.State==Tools.MAINACTIVITY)
 				{
-					System.out.println("正在main界面");
 					Tools.out("正在main界面");
 					Tools.Tips(Tools.CMD_FILEREQUEST, msg); //mainAcitvityHandler
 				}
-				else if(Tools.State==Tools.CHATACTIVITY)
+				else if(Tools.State==Tools.SENDACTIVITY)
 				{
-					System.out.println("正在chat界面");
-					Tools.out("正在chat界面");
-					Intent it = new Intent(Tools.chart, SendMainActivity.class);
+					Tools.out("正在send界面");
+					Intent it = new Intent(Tools.send, MainActivity.class);
 					it.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-					Tools.chart.startActivity(it);
+					Tools.send.startActivity(it);
 					Tools.Tips(Tools.CMD_FILEREQUEST, msg);
 
 				}
+				
 				break;
 
-			case Tools.CMD_SENDMSG:// 接收到对方发送的消息
-				Tools.out(msg.getSendUser()+"来消息了");
-				receiveMsg(msg);
-				break;
 			case Tools.CMD_ONLINE:// 上线
 				upline(msg);
 				break;
@@ -309,24 +280,24 @@ public class Tools {
 		
 		// 判断是否有此人 更新
 		public boolean judgeUser(Msg msg) {// false 表示不存在
-			for (int i = 0; i < mainA.userList.size(); i++) 
+			for (int i = 0; i < send.userList.size(); i++) 
 			{
-				if (mainA.userList.get(i).getIp().equals(msg.getSendUserIp())) 
+				if (send.userList.get(i).getIp().equals(msg.getSendUserIp())) 
 				{
 					// 如果存在 改名字
-					if (!mainA.userList.get(i).getName().equals(msg.getSendUser()))
+					if (!send.userList.get(i).getName().equals(msg.getSendUser()))
 					{
-						mainA.userList.get(i).setName(msg.getSendUser());// 该在线列表的名字
-						mainA.adapterList.get(i).put("name", msg.getSendUser());
+						send.userList.get(i).setName(msg.getSendUser());// 该在线列表的名字
+						send.adapterList.get(i).put("name", msg.getSendUser());
 						//刷新列表													
-						Tips(Tools.FLUSH,null);
+						TipsSend(Tools.FLUSH,null);
 					}
-					if (mainA.userList.get(i).getHeadIcon()!=msg.getHeadIconPos())
+					if (send.userList.get(i).getHeadIcon()!=msg.getHeadIconPos())
 					{
-						mainA.userList.get(i).setHeadIcon(msg.getHeadIconPos());// 该在线列表的名字
-						mainA.adapterList.get(i).put("headicon", Tools.headIconIds[msg.getHeadIconPos()]);
+						send.userList.get(i).setHeadIcon(msg.getHeadIconPos());// 该在线列表的名字
+						send.adapterList.get(i).put("headicon", Tools.headIconIds[msg.getHeadIconPos()]);
 						//刷新列表													
-						Tips(Tools.FLUSH,null);
+						TipsSend(Tools.FLUSH,null);
 					}
 					return true;
 				}
@@ -335,9 +306,10 @@ public class Tools {
 		}
 		// 添加在线用户
 		public void addUser(Msg msg) {
-			User user = new User(msg.getSendUser(), msg.getSendUserIp(), 0);
+			User user = new User(msg.getSendUser(), msg.getSendUserIp(), msg.getHeadIconPos());
+
 			// 在线列表加人
-			mainA.userList.add(user);
+			send.userList.add(user);
 			// 为其创建聊天记录
 			// Tools.MsgEx.put(msg.getSendUserIp(), "");
 			// listView加人
@@ -347,32 +319,31 @@ public class Tools {
 			map.put("UnReadMsgCount", "");
 			map.put("headicon", Tools.headIconIds[user.getHeadIcon()]);
 			// 刷新列表
-			Tips(Tools.ADDUSER,map);
+			TipsSend(Tools.ADDUSER,map);
 		}
 		// Tips-Handler
 		public static void Tips(int cmd,Object str) {
 			Message m = new Message();
 			m.what = cmd;
 			m.obj = str;
-			mainA.handler.sendMessage(m);
+			main.handler.sendMessage(m);
 		}
 		
-		public static void TipsChat(int cmd,Object str)
+		public static void TipsSend(int cmd,Object str)
 		{
 			Message m = new Message();
 			m.what = cmd;
 			m.obj = str;
-			Tools.chart.handler.sendMessage(m);
+			Tools.send.handler.sendMessage(m);
 		}
 		public void fileProgress() {
 			new Thread() { 
 				public void run() {
 	
 					while (Tools.sendProgress != -1) {
-						System.out.println("tools fileprogress");
 						 Message m = new Message();
 							m.what = Tools.PROGRESS_FLUSH;
-						Tools.chart.handler.sendMessage(m);
+						Tools.send.handler.sendMessage(m);
 						try {
 							Thread.sleep(1000);
 						} catch (Exception e) {
@@ -382,13 +353,13 @@ public class Tools {
 					// 关闭进度条
 					Message m1 = new Message();
 					m1.what = Tools.PROGRESS_COL;
-					Tools.chart.handler.sendMessage(m1);
+					Tools.send.handler.sendMessage(m1);
 				}
 			}.start();
 		}
 		public static void out(String s)
 		{
-			Log.v("mes", s);
+			Log.i("mes", s);
 		}
 		// 获取本机IP
 		public static String getLocalHostIp() {

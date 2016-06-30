@@ -55,13 +55,7 @@
         	android:logo="@drawable/ic_launcher">
             
    		</activity>
-   		
-   		<activity
-        	android:name=".activity.ChatActivity"
-        	android:label="chat"
-        	android:logo="@drawable/ic_launcher">
-            
-   		</activity>
+
     
     </application>
 	

@@ -7,16 +7,17 @@ import java.io.FileOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import com.ustc.sharefile.activity.MainActivity;
 import com.ustc.sharefile.activity.SendMainActivity;
 
 import android.app.Activity;
 
 
 public class FileTcpServer {
-	SendMainActivity mainA;
+	MainActivity main;
 	
-	public FileTcpServer(Activity mainA){
-		this.mainA = (SendMainActivity) mainA;
+	public FileTcpServer(Activity main){
+		this.main = (MainActivity) main;
 	}
 	
 	public void start(){

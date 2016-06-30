@@ -1,5 +1,7 @@
 package com.ustc.sharefile.activity;
 
+import java.io.File;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class SendMainActivity extends Activity {
@@ -43,23 +46,30 @@ public class SendMainActivity extends Activity {
 	ProgressDialog proDia = null;
 	Double fileSize=0.0;
 	
+	User person = null;
+	public String choosePath = null;
+	
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send);
         
       //初始化布局
-      		Tools.State=Tools.MAINACTIVITY;//状态
-      		Tools.mainA=this;
+      		Tools.State=Tools.SENDACTIVITY;//状态
+      		Tools.send=this;
       		init();
       		
-      		tools=new Tools(this,Tools.ACTIVITY_MAIN);
+      		tools=new Tools(this,Tools.ACTIVITY_SEND);
       		
       		//广播上线(包括自己)
     		reBroad();
     		
     		// 开启接收端 时时更新在线列表
     		tools.receiveMsg();
+    		
+    		Intent pathIntent = getIntent();
+    		choosePath = pathIntent.getStringExtra("filePaths");
       		
       		
     }
@@ -67,32 +77,28 @@ public class SendMainActivity extends Activity {
  // 初始化布局
  	public void init()
  	{
- 		System.out.println("send init()");
+ 
  		listView = (ListView) super.findViewById(R.id.friend_listView);
  		// 列表项监听
  		listView.setOnItemClickListener(new OnItemClickListener() {
  			@Override
  			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
  					long arg3) {
- 				//转入chatActivity
- 				Intent it = new Intent(SendMainActivity.this, ChatActivity.class);
- 				it.putExtra("person", userList.get(arg2));
- 				SendMainActivity.this.startActivityForResult(it, 1);
- 				// 当前人的聊天提示信息清零
- 				for (int i = 0; i < adapterList.size(); i++) {
- 					if (adapterList.get(i).get("ip").equals("IP:"+userList.get(arg2).getIp())) { // 遍历
- 						adapterList.get(i).put("UnReadMsgCount", "");
- 						tools.Tips(Tools.FLUSH, null);
- 						Tools.out("清零");
- 						Tools.out("转入chart");
- 					}
- 				}
+ 				
+ 				person = userList.get(arg2);
+	 			//发送请求传送文件
+	 			Msg msg=new Msg(Tools.me.getHeadIcon(),Tools.me.getName(), Tools.me.getIp(), person.getName(), person.getIp(),Tools.CMD_FILEREQUEST, 
+	 					(new File(choosePath)).getName()+Tools.sign+(new File(choosePath)).length());
+
+	 			tools.sendMsg(msg);
+	 			Tools.out("发送请求传送文件");
+ 				
  			}
  		});
  		// 初始化自己
  		userList = new ArrayList<User>();
  		
- 		Tools.me = new User(Build.MODEL,Tools.getLocalHostIp(),0);
+ 		//Tools.me = new User(Build.MODEL,Tools.getLocalHostIp(),0);
 
  		userList.add(Tools.me.getCopy());
  		
@@ -129,6 +135,10 @@ public class SendMainActivity extends Activity {
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
+				case Tools.SHOW:
+				Toast.makeText(SendMainActivity.this, (String) msg.obj,
+						Toast.LENGTH_SHORT).show();
+				break;
 				case Tools.FLUSH:
 					adapter.notifyDataSetChanged();
 					break;
@@ -141,37 +151,20 @@ public class SendMainActivity extends Activity {
 					userList.remove(i);
 					adapterList.remove(i);
 					adapter.notifyDataSetChanged();
-				case Tools.REFLESHCOUNT:
-					String ip=msg.obj.toString();
-					Tools.out("刷新条目"+ip);
-					for (int k = 0; k < adapterList.size(); k++) {
-						if (adapterList.get(k).get("ip").equals("IP:"+ip)) 
-						{ // 遍历
-							if(Tools.msgContainer.get(ip)==null)
-							{
-								adapterList.get(k).put("UnReadMsgCount", "");	
-							}
-							else {
-								adapterList.get(k).put("UnReadMsgCount", "未读:"+Tools.msgContainer.get(ip).size());	
-								Tools.out("找到了:"+Tools.msgContainer.get(ip));
-							}
-						}
-					}
-					adapter.notifyDataSetChanged();
-					break;
+
 				case Tools.CMD_FILEREQUEST:
 					//文件请求
 					receiveFile((Msg)msg.obj);
 					break;
-//				case Tools.FILE_JINDU:
-//					String[] pi = ((String) msg.obj).split(Tools.sign);
-//					fileSize = Double.parseDouble(pi[2]);
-//					proDia.setTitle(pi[0]);// 设置标题
-//					proDia.setMessage(pi[1] + " 大小："
-//							+ FileActivity.getFormatSize(fileSize));// 设置显示信息
-//					proDia.onStart();
-//					proDia.show();
-//					break;
+				case Tools.FILE_JINDU:
+					String[] pi = ((String) msg.obj).split(Tools.sign);
+					fileSize = Double.parseDouble(pi[2]);
+					proDia.setTitle(pi[0]);// 设置标题
+					proDia.setMessage(pi[1] + " 大小："
+							+ getFormatSize(fileSize));// 设置显示信息
+					proDia.onStart();
+					proDia.show();
+					break;
 				case Tools.PROGRESS_FLUSH:
 					System.out.println("main  progress flush");
 					int i0 = (int) ((Tools.sendProgress / (fileSize)) * 100);
@@ -180,6 +173,8 @@ public class SendMainActivity extends Activity {
 				case Tools.PROGRESS_COL:// 关闭进度条
 					
 					proDia.dismiss();
+					Intent mainintent = new Intent(SendMainActivity.this,MainActivity.class);
+					startActivity(mainintent);
 					break;
 			}
 		}
@@ -254,7 +249,7 @@ public class SendMainActivity extends Activity {
 	    	//isPaused = false;
 	    	Tools.out("Resume");
 	    	reBroad();
-			Tools.State=Tools.MAINACTIVITY;
+			Tools.State=Tools.SENDACTIVITY;
 	    }
 	    @Override
 	    protected void onPause() {
@@ -271,7 +266,6 @@ public class SendMainActivity extends Activity {
 		//广播自己
 	    public void reBroad()
 	    {
-	    	System.out.println("send rebroad()");
 	    	//广播上线(包括自己)
 			Msg msg=new Msg();
 			msg.setSendUser(Tools.me.getName());//昵称默认为自己的机器号
@@ -282,5 +276,36 @@ public class SendMainActivity extends Activity {
 			// 发送广播通知上线
 			tools.sendMsg(msg);
 	    }
+		// 计算文件大小
+		public static String getFormatSize(double size) {
+			double kiloByte = size / 1024;
+			if (kiloByte < 1) {
+				return size + "Byte(s)";
+			}
+
+			double megaByte = kiloByte / 1024;
+			if (megaByte < 1) {
+				BigDecimal result1 = new BigDecimal(Double.toString(kiloByte));
+				return result1.setScale(2, BigDecimal.ROUND_HALF_UP)
+						.toPlainString() + "KB";
+			}
+
+			double gigaByte = megaByte / 1024;
+			if (gigaByte < 1) {
+				BigDecimal result2 = new BigDecimal(Double.toString(megaByte));
+				return result2.setScale(2, BigDecimal.ROUND_HALF_UP)
+						.toPlainString() + "MB";
+			}
+
+			double teraBytes = gigaByte / 1024;
+			if (teraBytes < 1) {
+				BigDecimal result3 = new BigDecimal(Double.toString(gigaByte));
+				return result3.setScale(2, BigDecimal.ROUND_HALF_UP)
+						.toPlainString() + "GB";
+			}
+			BigDecimal result4 = new BigDecimal(teraBytes);
+			return result4.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString()
+					+ "TB";
+		}
 }
 

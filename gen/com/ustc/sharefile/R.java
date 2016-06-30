@@ -120,26 +120,42 @@ containing a value of this type.
         public static final int download=0x7f020004;
         public static final int editable_mode_checked_tag=0x7f020005;
         public static final int editable_mode_unchecked_tag=0x7f020006;
-        public static final int file_directory=0x7f020007;
-        public static final int file_doc=0x7f020008;
-        public static final int file_parent=0x7f020009;
-        public static final int file_root=0x7f02000a;
-        public static final int friends_sends_pictures_no=0x7f02000b;
-        public static final int friends_sends_pictures_select_icon_selected=0x7f02000c;
-        public static final int friends_sends_pictures_select_icon_unselected=0x7f02000d;
-        public static final int home=0x7f02000e;
-        public static final int ic_launcher=0x7f02000f;
-        public static final int input_over=0x7f020010;
-        public static final int login=0x7f020011;
-        public static final int login_input=0x7f020012;
-        public static final int menu=0x7f020013;
-        public static final int modify=0x7f020014;
-        public static final int out=0x7f020015;
-        public static final int pictures_select_icon=0x7f020016;
-        public static final int qq_edit_login=0x7f020017;
-        public static final int radio_group_selector=0x7f020018;
-        public static final int upload=0x7f020019;
-        public static final int user=0x7f02001a;
+        public static final int face0=0x7f020007;
+        public static final int face1=0x7f020008;
+        public static final int face10=0x7f020009;
+        public static final int face11=0x7f02000a;
+        public static final int face12=0x7f02000b;
+        public static final int face13=0x7f02000c;
+        public static final int face14=0x7f02000d;
+        public static final int face15=0x7f02000e;
+        public static final int face2=0x7f02000f;
+        public static final int face3=0x7f020010;
+        public static final int face4=0x7f020011;
+        public static final int face5=0x7f020012;
+        public static final int face6=0x7f020013;
+        public static final int face7=0x7f020014;
+        public static final int face8=0x7f020015;
+        public static final int face9=0x7f020016;
+        public static final int file_directory=0x7f020017;
+        public static final int file_doc=0x7f020018;
+        public static final int file_parent=0x7f020019;
+        public static final int file_root=0x7f02001a;
+        public static final int friends_sends_pictures_no=0x7f02001b;
+        public static final int friends_sends_pictures_select_icon_selected=0x7f02001c;
+        public static final int friends_sends_pictures_select_icon_unselected=0x7f02001d;
+        public static final int home=0x7f02001e;
+        public static final int ic_launcher=0x7f02001f;
+        public static final int input_over=0x7f020020;
+        public static final int login=0x7f020021;
+        public static final int login_input=0x7f020022;
+        public static final int menu=0x7f020023;
+        public static final int modify=0x7f020024;
+        public static final int out=0x7f020025;
+        public static final int pictures_select_icon=0x7f020026;
+        public static final int qq_edit_login=0x7f020027;
+        public static final int radio_group_selector=0x7f020028;
+        public static final int upload=0x7f020029;
+        public static final int user=0x7f02002a;
     }
     public static final class id {
         public static final int UnReadMsgCount=0x7f09001b;
@@ -149,7 +165,7 @@ containing a value of this type.
         public static final int btn_back=0x7f090029;
         public static final int btn_login=0x7f09002a;
         public static final int btn_register=0x7f090028;
-        public static final int cut=0x7f090039;
+        public static final int cut=0x7f09003a;
         public static final int div_tab_bar=0x7f090021;
         public static final int drawer_layout=0x7f090000;
         public static final int et_account=0x7f090026;
@@ -177,6 +193,7 @@ containing a value of this type.
         public static final int iv_left=0x7f090023;
         public static final int left_relative_drawer=0x7f090002;
         public static final int lv_left=0x7f090004;
+        public static final int menu_receive=0x7f090039;
         public static final int name=0x7f090019;
         public static final int picture_child_checkbox=0x7f09002d;
         public static final int picture_child_grid=0x7f090038;
@@ -221,7 +238,8 @@ containing a value of this type.
         public static final int show_image_activity=0x7f030010;
     }
     public static final class menu {
-        public static final int picture=0x7f080000;
+        public static final int main=0x7f080000;
+        public static final int picture=0x7f080001;
     }
     public static final class string {
         public static final int account=0x7f060005;
