@@ -59,10 +59,11 @@ public class FileTcpServer {
 		}
 		Tools.sendProgress = -1;
 		
-		is.close();
 		os.flush();
 		os.close();
+		is.close();
 		s.close();
-		Tools.Tips(Tools.SHOW, "接收完成" + Tools.newfileName);
+		
+//		Tools.Tips(Tools.SHOW, "接收完成" + Tools.newfileName);
 	}
 }

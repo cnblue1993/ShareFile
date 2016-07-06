@@ -5,10 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.R.string;
+import android.R.fraction;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,7 +35,7 @@ import com.ustc.sharefile.transfer.model.FileTcpServer;
 import com.ustc.sharefile.transfer.model.Msg;
 import com.ustc.sharefile.transfer.model.Tools;
 import com.ustc.sharefile.transfer.model.User;
-import com.ustc.sharefile.view.LoginFragment;
+import com.ustc.sharefile.view.AllFragment;
 import com.ustc.sharefile.view.MainFragment;
 
 public class MainActivity extends FragmentActivity {
@@ -51,6 +54,8 @@ public class MainActivity extends FragmentActivity {
 	Msg m=null;
 	ProgressDialog proDia = null;
 	Double fileSize=0.0;
+	
+	SharedPreferences preferences;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +92,6 @@ public class MainActivity extends FragmentActivity {
         
         Tools.me = new User(Build.MODEL,Tools.getLocalHostIp(),0);
         Tools.me.setHeadIcon(head);
-        username.setText(Tools.me.getName());
         
         tools=new Tools(this,Tools.ACTIVITY_MAIN);
         tools.receiveMsg();
@@ -152,7 +156,6 @@ public class MainActivity extends FragmentActivity {
         map.put("text", "注销");
         list.add(map);
         
-        list.add(null);
 
 
         return list;
@@ -168,28 +171,22 @@ public class MainActivity extends FragmentActivity {
 
     private void seleteItem(int position){
         leftList.setItemChecked(position, true);
-        Fragment newFragment = null;
-        Bundle args = new Bundle();
-        switch (position) {
-		case 0:
-			newFragment = new LoginFragment();/* new 一个子fragment */
-	        args.putInt(LoginFragment.ARG_SHOW_FRAGMENT,position);
-			break;
-		case 1:
-			newFragment = new MainFragment();/* new 一个子fragment */
-	        args.putInt(LoginFragment.ARG_SHOW_FRAGMENT,position);
-			break;
-			
-		default:
-			break;
-		}
         
-        newFragment.setArguments(args);/* 装载数据 */
-        /* 替换当前fragment */
-        getSupportFragmentManager().beginTransaction().replace(R.id.root_framelayout,newFragment).commit();
-
-        /* 最后关闭左侧抽屉 */
-        drawerLayout.closeDrawer(leftDrawer);
+        switch (position) {
+			case 0:
+				Intent loginIntent = new Intent(MainActivity.this, LoginOrRegister.class);
+				startActivity(loginIntent);
+				break;
+			case 1:
+				drawerLayout.closeDrawer(leftDrawer);
+				break;
+			case 3:
+				clearLogin();
+				drawerLayout.closeDrawer(leftDrawer);
+				break;
+			default:
+				break;
+			}
     }
 	
     public Handler handler = new Handler() {
@@ -202,7 +199,7 @@ public class MainActivity extends FragmentActivity {
 				
 				case Tools.CMD_FILEREQUEST:
 					//文件请求
-					receiveFile((Msg)msg.obj);
+					receiveFile((Msg)(msg.obj));
 					break;
 				case Tools.FILE_JINDU:
 					String[] pi = ((String) msg.obj).split(Tools.sign);
@@ -214,6 +211,7 @@ public class MainActivity extends FragmentActivity {
 					proDia.show();
 					break;
 				case Tools.PROGRESS_FLUSH:
+					System.out.println("main  progress flush");
 					int i0 = (int) ((Tools.sendProgress / (fileSize)) * 100);
 					proDia.setProgress(i0);
 					break;
@@ -244,13 +242,13 @@ public class MainActivity extends FragmentActivity {
 						+ Tools.sign + Tools.newfileSize;
 				
 				handler.sendMessage(m1);
-				fileProgress();// 启动进度条线程
+				
 				
 				// 发送消息 让对方开始发送文件
 				Msg msg=new Msg(0,Tools.me.getName(), Tools.me.getIp(), m.getSendUser(), m.getSendUserIp(),Tools.CMD_FILEACCEPT, null);
 				
 				tools.sendMsg(msg);
-				
+				fileProgress();// 启动接收进度条线程
 				return;
 			}
 		})
@@ -268,6 +266,7 @@ public class MainActivity extends FragmentActivity {
 		public void fileProgress() {
 			new Thread() {
 				public void run() {
+					System.out.println("main progress");
 					while (Tools.sendProgress != -1) {
 						Message m = new Message();
 						m.what = Tools.PROGRESS_FLUSH;
@@ -286,6 +285,15 @@ public class MainActivity extends FragmentActivity {
 			}.start();
 		}
 		@Override
+		protected void onStart() {
+			// TODO Auto-generated method stub
+			super.onStart();
+			
+			preferences=getSharedPreferences("user", Context.MODE_PRIVATE);
+			username.setText(preferences.getString("userName", "userName"));
+			
+		}
+		@Override
 	    protected void onResume() {
 	    	super.onResume();
 	    	//isPaused = false;
@@ -298,12 +306,14 @@ public class MainActivity extends FragmentActivity {
 	    	super.onPause();
 	    	//isPaused = false;
 	    	Tools.out("PAUSE");
+	    	Tools.State=Tools.MAINACTIVITY;
 	    }
 	    @Override
 	    protected void onDestroy() {
 	    	super.onDestroy();
 	    	//isPaused=true;
 	    	Tools.out("Destroy");
+	    	Tools.State=Tools.MAINACTIVITY;
 	    }
 		//广播自己
 	    public void reBroad()
@@ -318,4 +328,9 @@ public class MainActivity extends FragmentActivity {
 			// 发送广播通知上线
 			tools.sendMsg(msg);
 	    }
+	    public void clearLogin() { 
+	    	  preferences.edit().clear().commit(); 
+	    	  preferences=getSharedPreferences("user", Context.MODE_PRIVATE);
+			  username.setText(preferences.getString("userName", "userName"));
+	    } 
 }

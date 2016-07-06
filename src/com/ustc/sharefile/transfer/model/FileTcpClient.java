@@ -49,5 +49,6 @@ public class FileTcpClient {
 		is.close();
 		os.flush();
 		os.close();
+		Tools.TipsSend(Tools.SHOW, "发送成功");
 	}
 }

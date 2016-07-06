@@ -1,5 +1,6 @@
 package com.ustc.sharefile.view;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,6 +8,7 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -22,14 +24,14 @@ public class LoginFragment extends Fragment {
 	private EditText et_account;
 	private EditText et_pwd;
 	private Button btn_login;
-	private Button btn_back;
 	private Button btn_register;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.login, container, false);
-		
+		ActionBar actionBar = getActivity().getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 		findById(view);
 		
 		return view;
@@ -39,11 +41,9 @@ public class LoginFragment extends Fragment {
 		et_account = (EditText) view.findViewById(R.id.et_account);
 		et_pwd = (EditText) view.findViewById(R.id.et_pwd);
 		btn_login = (Button) view.findViewById(R.id.btn_login);
-		btn_back = (Button) view.findViewById(R.id.btn_back);
 		btn_register = (Button) view.findViewById(R.id.btn_register);
 	
 		btn_login.setOnClickListener(clickListener);
-		btn_back.setOnClickListener(clickListener);
 		btn_register.setOnClickListener(clickListener);
 	}
 	
@@ -63,11 +63,7 @@ public class LoginFragment extends Fragment {
 				case R.id.btn_login:
 					editor.putInt("loginState", 1);
 					break;
-				case R.id.btn_back:
-					editor.putInt("loginState", 0);
-					flag1 = true;
-					flag2 = true;
-					break;
+
 				case R.id.btn_register:
 					editor.putInt("loginState", 1);
 					isLogin = false;
@@ -89,5 +85,13 @@ public class LoginFragment extends Fragment {
     	String regex = "^[a-zA-Z0-9]+$";
     	return string.length()>0 && string.matches(regex);
     }
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case android.R.id.home:// 点击返回图标事件
+            getActivity().finish();
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
 }

@@ -90,9 +90,6 @@ public class ClipImageLayout extends RelativeLayout
 		mZoomImageView.setVerticalPadding((getHeight() - height)/2.0f);
 		mClipImageView.setVerticalPadding((getHeight() - height)/2.0f);
 		
-		System.out.println("layout:"+getWidth());
-		System.out.println("layout:"+getHeight());
-		
 		mClipImageView.postInvalidate();
 	}
 	

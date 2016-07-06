@@ -83,14 +83,14 @@ public class AllFragment extends Fragment implements OnItemClickListener, OnClic
 			
 			//放上根目录
 			Map<String, Object> root = new HashMap<String, Object>();
-			root.put("name", "/");
+			root.put("name", "根目录/");
 			root.put("img", R.drawable.file_root);
 			root.put("path", "回根目录");
 			adapterList.add(root);
 			
 			//放上父目录
 			Map<String, Object> pMap = new HashMap<String, Object>();
-			pMap.put("name", "..");
+			pMap.put("name", "上一级..");
 			pMap.put("img", R.drawable.file_parent);
 			pMap.put("path", "上一级");
 			adapterList.add(pMap);

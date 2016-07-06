@@ -132,7 +132,7 @@ public class MusicFragment extends Fragment {
 	public void onDestroy() {  
         super.onDestroy();  
         /*销毁时注销广播*/  
-        getActivity().unregisterReceiver(wifiReceiver);  
+        //getActivity().unregisterReceiver(wifiReceiver);  
     }  
 
 }

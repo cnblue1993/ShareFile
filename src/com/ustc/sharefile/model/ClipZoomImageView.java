@@ -407,10 +407,10 @@ public class ClipZoomImageView extends ImageView implements
 				Bitmap.Config.ARGB_8888);
 		Canvas canvas = new Canvas(bitmap);
 		draw(canvas);
-
+		
 		return Bitmap.createBitmap(bitmap, (int)mHorizontalPadding,
-				(int)mVerticalPadding, (int)(getWidth() - 2 *(int) mHorizontalPadding),
-				(int)(getWidth() - 2 * (int)mHorizontalPadding));
+				(int)mVerticalPadding, (int)(getWidth() - 2 * mHorizontalPadding),
+				(int)(getHeight() - 2 * mVerticalPadding));
 	}
 
 	/**

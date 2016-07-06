@@ -3,6 +3,11 @@
     <item
         android:id="@+id/cut"
         android:showAsAction="always|withText"
-        android:title="裁切"/>
+        android:title="裁切"
+        />
+    <item
+        android:id="@+id/merge"
+        android:showAsAction="always|withText"
+        android:title="合成"/>
 
 </menu>

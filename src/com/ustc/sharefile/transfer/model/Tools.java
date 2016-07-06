@@ -32,11 +32,7 @@ public class Tools {
 	// 协议命令
 	public static final int CMD_ONLINE = 10;// 上线
 	public static final int CMD_REPLYONLINE = 11;// 回应上线
-	public static final int CMD_CHECK = 12;// 心跳广播
-	public static final int CMD_SENDMSG=13;// 发送信息
-	public static final int CMD_STARTTALK=14;// 发送呼叫请求
-	public static final int CMD_STOPTALK=15;// 发送结束呼叫请求
-	public static final int CMD_ACCEPTTALK=16;// 发送接收呼叫请求
+
 
 	public static final int CMD_FILEREQUEST=20;//请求传送文件
 	public static final int CMD_FILEACCEPT=21;//接受文件请求
@@ -176,6 +172,7 @@ public class Tools {
 				break;
 				
 			case Tools.CMD_FILEREFUSE:
+				
 				//收到拒绝接受
 				Tools.TipsSend(Tools.SHOW, "对方拒绝接受文件");
 				break;
@@ -339,7 +336,7 @@ public class Tools {
 		public void fileProgress() {
 			new Thread() { 
 				public void run() {
-	
+					System.out.println("tools progress");
 					while (Tools.sendProgress != -1) {
 						 Message m = new Message();
 							m.what = Tools.PROGRESS_FLUSH;

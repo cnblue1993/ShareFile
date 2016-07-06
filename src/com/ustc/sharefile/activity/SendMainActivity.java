@@ -166,13 +166,14 @@ public class SendMainActivity extends Activity {
 					proDia.show();
 					break;
 				case Tools.PROGRESS_FLUSH:
-					System.out.println("main  progress flush");
+					
 					int i0 = (int) ((Tools.sendProgress / (fileSize)) * 100);
 					proDia.setProgress(i0);
 					break;
 				case Tools.PROGRESS_COL:// 关闭进度条
 					
 					proDia.dismiss();
+
 					Intent mainintent = new Intent(SendMainActivity.this,MainActivity.class);
 					startActivity(mainintent);
 					break;
@@ -225,8 +226,8 @@ public class SendMainActivity extends Activity {
 		public void fileProgress() {
 			new Thread() {
 				public void run() {
+					System.out.println("send fileprogress");
 					while (Tools.sendProgress != -1) {
-						System.out.println("file fileprogress");
 						Message m = new Message();
 						m.what = Tools.PROGRESS_FLUSH;
 						handler.sendMessage(m);

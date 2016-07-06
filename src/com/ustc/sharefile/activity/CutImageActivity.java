@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -45,6 +46,8 @@ public class CutImageActivity extends Activity {
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.picture_cut);
+		ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
 		mClipImageLayout = (ClipImageLayout) findViewById(R.id.id_clipImageLayout);
 		
@@ -129,10 +132,13 @@ public class CutImageActivity extends Activity {
 			Bitmap bitmap = mClipImageLayout.clip();
 			//未存储在本地
 			saveMyBitmap(path, bitmap);
-			
-//			Intent intent = new Intent(this, ShowImageActivity.class);
-//			intent.putExtra("bitmap", datas);
-//			startActivity(intent);
+			break;
+		case R.id.merge:
+			Intent intent = new Intent(this, MergeImageActivity.class);
+			startActivity(intent);
+			break;
+		case android.R.id.home:// 点击返回图标事件
+            this.finish();
 
 			break;
 		}
@@ -176,11 +182,12 @@ public class CutImageActivity extends Activity {
 		  }
 		  
 		  if(isSaved){
-			  Toast.makeText(this, "裁剪图片已保存", Toast.LENGTH_SHORT);
+			  Toast.makeText(this, "裁剪图片已保存", Toast.LENGTH_SHORT).show();
 			  Intent backIntent = new Intent(this,MainActivity.class);
 			  startActivity(backIntent);
 		  }else{
-			  Toast.makeText(this, "裁剪图片保存失败", Toast.LENGTH_SHORT);
+			  Toast.makeText(this, "裁剪图片保存失败", Toast.LENGTH_SHORT).show();
 		  }
 	 }
+
 }

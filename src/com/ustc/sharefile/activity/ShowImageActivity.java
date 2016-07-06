@@ -1,6 +1,8 @@
 package com.ustc.sharefile.activity;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import android.R.string;
@@ -11,8 +13,10 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,6 +32,9 @@ public class ShowImageActivity extends Activity {
 	private List<String> list;
 	private ChildAdapter adapter;
 	
+	private List<Integer> selectMap = new ArrayList<Integer>();
+	
+	private Button btn_select;
 	
 
 	@Override
@@ -39,6 +46,7 @@ public class ShowImageActivity extends Activity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 		
 		mGridView = (GridView) findViewById(R.id.picture_child_grid);
+		//btn_select = (Button) findViewById(R.id.picture_send);
 		
 		list = getIntent().getStringArrayListExtra("data");
 		
@@ -67,6 +75,20 @@ public class ShowImageActivity extends Activity {
 			}
 			
 		});
+//		
+//		btn_select.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				// TODO Auto-generated method stub
+//				selectMap = adapter.getSelectItems();
+//				for(int position:selectMap)  
+//		        {  
+//					String path = (String) adapter.getItem(position);
+//					System.out.println(path);
+//		        } 
+//			}
+//		});
 		
 	
 	}

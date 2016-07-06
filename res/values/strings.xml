@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">OdeToJoy_ShareFile</string>
+    <string name="app_name">ShareFile</string>
     
     <!-- 登录、注册  -->
     <string name="login">登录</string>
@@ -23,6 +23,7 @@
 	
 	<!-- 裁剪 -->
 	<string name="cut_picture">裁剪图片</string>
+	<string name="merge_picture">合成图片</string>
 	<string name="size1">1寸</string>
 	<string name="size2">2寸</string>
 	<string name="size3">5寸</string>
